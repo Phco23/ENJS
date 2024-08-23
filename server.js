@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const express = require('express')
+const User = require('./models/users')
 const app = express()
 app.use(express.json())
 
@@ -11,23 +12,6 @@ mongoose.connect("mongodb://localhost:27017/ENJS")
         console.log("Unable to connect database")
     })
 
-const userSchema = new mongoose.Schema({
-        username:{
-            type: String,
-            required: true
-        },
-        fullname:{
-            type: String
-        },
-        address:{
-            type: String
-        },
-        age:{
-            type: Number
-        }
-});
-
-const User = mongoose.model("User", userSchema)
 app.post('/user', (req, res) => {
     console.log(req.body)
     const user = new User(req.body)
@@ -59,10 +43,6 @@ app.get("/user", (req, res) => {
         })
     })
 
-app.put("/user/:username", (req, res) => {
-    const username = req.params
-    
-})
 
 app.listen(5000, () => {
     console.log(`App listen on port ${5000}`)

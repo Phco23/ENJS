@@ -31,6 +31,10 @@ const getUsers = (req, res) => {
         })
     }
 
+const updateUser = (req, res) => {
+    
+}
+
 module.exports = {
     createUser,
     getUsers

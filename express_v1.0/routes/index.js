@@ -1,4 +1,3 @@
-var express = require('express');
 const userRouter = require("./users")
 
 const initRoutes = (app) => {

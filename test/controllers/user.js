@@ -43,7 +43,7 @@ const login = async(req, res) => {
     try {
         const user = await User.findOne({email})
         if(!user){
-            return res.send("User not found!")
+            return res.json({message:"User not found!" })
         }
 
         const passwordMatch = await brcypt.compare(password, user.password)

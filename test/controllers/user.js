@@ -15,10 +15,15 @@ const shop = (req, res) => {
 }
 
 const signup = async (req, res) => {
-    const {email, password} = req.body
+    const {email, password, name} = req.body
+    if(!email || !password || !name){
+        return res.json({
+            message: "Missing input"
+        })
+    }
     const user = await User.findOne({email})
     if(user){
-        res.json({
+        return res.json({
             message: "User already exist"
         })
     }else{
@@ -38,7 +43,7 @@ const login = async(req, res) => {
     try {
         const user = await User.findOne({email})
         if(!user){
-            res.send("User not found!")
+            return res.send("User not found!")
         }
 
         const passwordMatch = await brcypt.compare(password, user.password)
@@ -49,11 +54,11 @@ const login = async(req, res) => {
             res.json({success: true, message: "Login successful"})
 
         }else{
-            res.json({message: "Wrong password"})
+            return res.json({message: "Wrong password"})
         }
 
     } catch (error) {
-        res.json({ message: error })
+        return res.json({ message: error })
     }
 }
 

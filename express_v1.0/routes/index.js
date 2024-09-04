@@ -1,7 +1,9 @@
 const userRouter = require("./users")
 
 const initRoutes = (app) => {
-    app.use('/api', userRouter)
+    app.use('/', userRouter)
 }  
+
+
 
 module.exports = initRoutes;

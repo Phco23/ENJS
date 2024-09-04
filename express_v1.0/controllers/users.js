@@ -1,35 +1,20 @@
-const User = require("../models/users")
+const User = require('../models/users')
 
-const createUser = (req, res) => {
-    console.log(req.body)
-    const user = new User(req.body)
+const createUser = async(req, res) => {
+    const user = await User.create(req.body)
 
     user.save()
-        .then(() => {
-        res.status(200).json({
-                messsage: "Successfully"
-            })
-    }).catch((err) => {
-        res.status(500).json({  
-            messsage: err
-        })
-    }) 
+    res.render('create', {user})
 }
 
-const getUsers = (req, res) => {
-    var users = User.find()
-        .then((user) => {
-            res.status(200).json({
-            messsage: "Get user success",
-            userData: user
-            })
-        }).catch((err) => {
-            res.status(500).json({
-                messsage: "Unsuccessful",
-                userData: err
-            })
-        })
-    }
+const getUsers = async(req, res) => {
+    try {
+        const users = await User.find()
+        res.render('user', {users})
+    } catch (error) {
+        console.log(error)
+    }   
+}
 
 const updateUser = (req, res) => {
     

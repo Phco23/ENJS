@@ -1,0 +1,43 @@
+<%- include('layout/header') %>
+
+<div class="container">
+  <div class="row">
+    <div class="container mt-5">
+        <h2>Edit User (<%= user.name %>)</h2>
+        
+        <!-- Only one form tag is needed -->
+        <form action="/update/<%= user._id %>" method="post" id="add-form" enctype="multipart/form-data">
+            <!-- Input Name -->
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" value="<%= user.name %>">
+            </div>
+
+            <!-- Input Email -->
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" value="<%= user.email %>">
+            </div>
+
+            <!-- Input Phone -->
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" value="<%= user.phone %>">
+            </div>
+
+            <!-- Upload Image
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Choose an image</label>
+                <input class="form-control" type="file" id="formFile" name="image">
+                <img src="/<%= user.image %>" alt="User Image" class="img-thumbnail mt-1">
+            </div>  -->
+            <input type="hidden" name="old_image" value="<%= user.image %>">
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+  </div>
+</div>
+
+<%- include('layout/footer') %>

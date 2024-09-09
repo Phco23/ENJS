@@ -1,6 +1,7 @@
 const User = require('../models/user')
 const Swal = require('sweetalert2')
 const brcypt = require('bcrypt')
+const Product = require('../models/product')
 
 const account = (req, res) => {
     res.render('account')
@@ -10,9 +11,22 @@ const index = (req, res) => {
     res.render('index', { userName: req.session.userName })
 }
 
-const shop = (req, res) => {
-    res.render('shop', { userName: req.session.userName })
-}
+const shop = async (req, res) => {
+    try {
+        const response = await Product.find();  // Make sure to await the asynchronous call
+        const products = Array.isArray(response) ? response : [];  // Ensure response is an array
+        res.render('shop', { 
+            userName: req.session.userName, 
+            products 
+        });
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        res.render('shop', { 
+            userName: req.session.userName, 
+            products: []  // Send an empty array in case of error
+        });
+    }
+};
 
 const signup = async (req, res) => {
     const {email, password, name} = req.body
